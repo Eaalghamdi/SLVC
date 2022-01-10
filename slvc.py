@@ -5,7 +5,7 @@ import numpy as np
 
 
 
-videoURLS = ["https://www.youtube.com/watch?v=5qap5aO4i9A", "https://www.youtube.com/watch?v=5qap5aO4i9A", "https://www.youtube.com/watch?v=5qap5aO4i9A"]
+videoURLS = ["https://www.youtube.com/watch?v=5qap5aO4i9A", "https://www.youtube.com/watch?v=5qap5aO4i9A", "https://www.youtube.com/watch?v=5qap5aO4i9A", "https://www.youtube.com/watch?v=5qap5aO4i9A", "https://www.youtube.com/watch?v=5qap5aO4i9A"]
 
 
 def videoDisplayer(videoURLs):
@@ -19,12 +19,12 @@ def keywordSearch(input):
         st.write('The current movie title is', k)
 
 
-with st.container():
 
-    title = st.text_input('Search for a word in videos')
-    keywordSearch(title)
 
-    videoDisplayer(videoURLS)
+title = st.text_input('Search for a word in videos')
+keywordSearch(title)
+
+videoDisplayer(videoURLS)
  
 
 option = st.sidebar.selectbox(
