@@ -48,14 +48,22 @@ def videoDisplayer(videoURLs):
             column.video(videoURL)
 
 def keywordSearch(input):
-    ketwords = input.split(",")
-    for x in ketwords + VP["PV_list_lemmtaized"]:
+    keywords = input.split(",")
+    videos = []
+
+    for index, row in data.iterrows():
     
-        X = x.replace(", ", ",")
+        X = row["PV_list_lemmtaized"].replace(", ", ",")
         VP_list = X.split(",")
     
-        if x in ketwords and x in VP_list:
-            st.write(x)
+    
+        # if x in ketwords and x in VP_list:
+        result =  any(elem in keywords for elem in VP_list)
+        if result:
+            videos.append(row['File name'])
+  
+    st.write(videos)
+            
 
             
 
