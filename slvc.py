@@ -3,8 +3,13 @@ import pandas as pd
 import numpy as np
 
 
+### Laod the data ###
+
 df = pd.read_csv("PV_lemtaized.csv")
 VP = df.set_index('File name')
+
+
+### Utlities Functions ####
 
 def _max_width_(prcnt_width:int = 90):
     max_width_str = f"max-width: {prcnt_width}%;"
@@ -18,44 +23,10 @@ def _max_width_(prcnt_width:int = 90):
 _max_width_()
 
 
-videoURLS = [
-    "https://www.youtube.com/watch?v=5qap5aO4i9A",
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A"
-         "https://www.youtube.com/watch?v=5qap5aO4i9A",
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A"
-         "https://www.youtube.com/watch?v=5qap5aO4i9A",
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A"
-         "https://www.youtube.com/watch?v=5qap5aO4i9A",
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A"
-         "https://www.youtube.com/watch?v=5qap5aO4i9A",
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A"
-         "https://www.youtube.com/watch?v=5qap5aO4i9A",
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A", 
-     "https://www.youtube.com/watch?v=5qap5aO4i9A"
-     ]
-
-
 def videoDisplayer(videoURLs):
-    for col in range(0, len(videoURLS),4):
+    for col in range(0, len(videoURLs),4):
         columns = st.columns(3)
-        for column, videoURL in zip(columns, videoURLS):
+        for column, videoURL in zip(columns, videoURLs):
             column.video(videoURL)
 
 def keywordSearch(input):
@@ -75,14 +46,23 @@ def keywordSearch(input):
             videos.append(row['File name'])
     return videos
   
-            
+ ### Forntend ####           
 
 st.header("The Second Language Video Corpus")
+col1, col2 = st.columns([3, 1])
 
-title = st.text_input('Search for a word in videos')
-selected_videos = keywordSearch(title)
 
-videoDisplayer(selected_videos)
+title = col1.text_input('Search videos')
+search_option = col2.selectbox(
+     'Choose what to search?',
+     ('All', 'Phrasal Verbs'))
+if search_option == 'Phrasal Verbs':
+    selected_videos = keywordSearch(title)
+    videoDisplayer(selected_videos)
+if search_option == 'All':
+    selected_videos = keywordSearch(title)
+    videoDisplayer(selected_videos)
+
 
 #### Sidebar ####
 
@@ -110,8 +90,8 @@ with st.sidebar.form("my_form"):
 
 
     COCA_list_options  = st.radio(
-      'Lexical coverage BNC/COCA',
-     ('K1', 'K1-2', 'K1-3', 'K1-4'))
+      'Lexical coverage',
+     ('BNC/COCA K1', 'BNC/COCA K1-2', 'BNC/COCA K1-3', 'BNC/COCA K1-4'))
 
     slider_val = st.slider("Lexical coverage %", 0,100)
  
@@ -119,5 +99,5 @@ with st.sidebar.form("my_form"):
     # Every form must have a submit button.
     submitted = st.form_submit_button("Submit")
     if submitted:
-        st.write("values", values_list)
+        videoDisplayer(selected_videos)
 
