@@ -62,15 +62,16 @@ def keywordSearch(input):
         result =  any(elem in keywords for elem in VP_list)
         if result:
             videos.append(row['File name'])
+    return videos
   
             
 
 st.header("The Second Language Video Corpus")
 
 title = st.text_input('Search for a word in videos')
-keywordSearch(title)
+selected_videos = keywordSearch(title)
 
-videoDisplayer(videoURLS)
+videoDisplayer(selected_videos)
 
 #### Sidebar ####
 
@@ -96,15 +97,16 @@ with st.sidebar.form("my_form"):
     values_list =list(values)
     Difficulty_df = df[df['Difficulty Score (5-25)'].between(values_list[0], values_list[1])]
 
-    COCA_list_options = st.multiselect(
-     'Lexical coverage',
-     ['K1', 'K1-2', 'K1-3', 'K1-4'])
 
-    slider_val = st.slider("Form slider", 0,25)
-    checkbox_val = st.checkbox("Form checkbox")
+    COCA_list_options  = st.radio(
+      'Lexical coverage BNC/COCA',
+     ('K1', 'K1-2', 'K1-3', 'K1-4'))
+
+    slider_val = st.slider("Lexical coverage %", 0,100)
+ 
 
     # Every form must have a submit button.
     submitted = st.form_submit_button("Submit")
     if submitted:
-        st.write("slider", slider_val, "checkbox", checkbox_val)
+        st.write("values", values_list)
 
