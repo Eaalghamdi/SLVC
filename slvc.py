@@ -6,6 +6,17 @@ import numpy as np
 df = pd.read_csv("PV_lemtaized.csv")
 VP = df.set_index('File name')
 
+def _max_width_(prcnt_width:int = 90):
+    max_width_str = f"max-width: {prcnt_width}%;"
+    st.markdown(f""" 
+                <style> 
+                .reportview-container .main .block-container{{{max_width_str}}}
+                </style>    
+                """, 
+                unsafe_allow_html=True,
+    )
+_max_width_()
+
 
 videoURLS = [
     "https://www.youtube.com/watch?v=5qap5aO4i9A",
