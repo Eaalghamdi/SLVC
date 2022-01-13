@@ -23,8 +23,8 @@ _max_width_()
 
 
 def videoDisplayer(videoURLs):
-    for col in range(0, len(videoURLs),4):
-        columns = col_full.columns(3)
+    for col in range(0, len(videoURLs),5):
+        columns = col_full.columns(4)
         for column, videoURL in zip(columns, videoURLs):
             column.video(videoURL)
 
@@ -104,7 +104,7 @@ with st.sidebar.form("my_form"):
 
     slider_val = st.slider("Lexical coverage %", 0,100)
 
-    agree = st.checkbox('Show Data')
+    agree = st.checkbox('Show Dataframe')
 
    
  
