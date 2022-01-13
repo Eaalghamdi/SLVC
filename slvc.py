@@ -24,7 +24,7 @@ _max_width_()
 
 def videoDisplayer(videoURLs):
     for col in range(0, len(videoURLs),4):
-        columns = st.columns(3)
+        columns = col_full.columns(3)
         for column, videoURL in zip(columns, videoURLs):
             column.video(videoURL)
 
@@ -61,6 +61,8 @@ if search_option == 'Phrasal Verbs':
 if search_option == 'All':
     selected_videos = keywordSearch(title)
     videoDisplayer(selected_videos)
+
+col_full = st.container()
 
 
 #### Sidebar ####
@@ -100,10 +102,12 @@ with st.sidebar.form("my_form"):
 
     slider_val = st.slider("Lexical coverage %", 0,100)
  
+    
+
 
     # Every form must have a submit button.
     submitted = st.form_submit_button("Submit")
     if submitted:
-        # videoDisplayer(selected_videos)
-        col1.dataframe(selected_videos)
+        videoDisplayer(selected_videos['URL'])
+ 
 
