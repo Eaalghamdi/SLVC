@@ -23,7 +23,7 @@ _max_width_()
 
 
 def videoDisplayer(videoURLs):
-    for col in range(0, len(videoURLs),5):
+    for col in range(0, len(videoURLs),4):
         columns = col_full.columns(4)
         for column, videoURL in zip(columns, videoURLs):
             column.video(videoURL)
