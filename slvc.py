@@ -6,7 +6,6 @@ import numpy as np
 ### Laod the data ###
 
 df = pd.read_csv("slvc.csv")
-VP = df.set_index('File name')
 
 
 ### Utlities Functions ####
@@ -43,7 +42,7 @@ def keywordSearch(input):
         # if x in ketwords and x in VP_list:
         result =  any(elem in keywords for elem in VP_list)
         if result:
-            videos.append(row['File name'])
+            videos.append(row['File'])
     return videos
   
  ### Forntend ####           
@@ -74,15 +73,17 @@ with st.sidebar.form("my_form"):
         "Select Video Genre",
         ("Academic Lectures", "Government advertisement")
     )
-    if video_gnere_option  == "Academic Lectures":
-        st.write("Academic Lectures")
-    if video_gnere_option  == "Government advertisement":
-        st.write("Government advertisement")
-    
+    video_gnere_option = list(video_gnere_option)
+    selected_videos = df.loc[df['Genre'].isin(video_gnere_option)]
+
+
     accent_options = st.multiselect(
         "Speaker's Accent",
         ['American', 'Australian', 'Canadian', 'British'],
-        ['American',])
+        ['American']
+        )
+    accent_options = list(accent_options)
+    selected_videos = df.loc[df['Accent'].isin(accent_options)]
 
 
     values = st.slider(
@@ -90,7 +91,7 @@ with st.sidebar.form("my_form"):
         5.0, 25.0, (10.0, 20.0))
 
     values_list =list(values)
-    Difficulty_df = df[df['Difficulty'].between(values_list[0], values_list[1])]
+    selected_videos = df[df['Difficulty'].between(values_list[0], values_list[1])]
 
 
     COCA_list_options  = st.radio(
@@ -103,5 +104,6 @@ with st.sidebar.form("my_form"):
     # Every form must have a submit button.
     submitted = st.form_submit_button("Submit")
     if submitted:
-        videoDisplayer(selected_videos)
+        # videoDisplayer(selected_videos)
+        col1.dataframe(selected_videos)
 
