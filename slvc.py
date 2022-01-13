@@ -28,6 +28,7 @@ def videoDisplayer(videoURLs):
         for column, videoURL in zip(columns, videoURLs):
             column.video(videoURL)
 
+
 def keywordSearch(input):
     keywords = input.split(",")
     videos = []
@@ -62,6 +63,7 @@ if search_option == 'All':
     selected_videos = keywordSearch(title)
     videoDisplayer(selected_videos)
 
+expander = st.expander("Explore Data")
 col_full = st.container()
 
 
@@ -101,13 +103,20 @@ with st.sidebar.form("my_form"):
      ('BNC/COCA K1', 'BNC/COCA K1-2', 'BNC/COCA K1-3', 'BNC/COCA K1-4'))
 
     slider_val = st.slider("Lexical coverage %", 0,100)
+
+    agree = st.checkbox('Show Data')
+
+   
  
     
 
 
     # Every form must have a submit button.
     submitted = st.form_submit_button("Submit")
-    if submitted:
+    if submitted and agree:
+        expander.dataframe(selected_videos)
         videoDisplayer(selected_videos['URL'])
+    else:
+        videoDisplayer(df['URL'])
  
 
