@@ -108,7 +108,6 @@ with st.sidebar.form("my_form"):
 
    
  
-    
 
 
     # Every form must have a submit button.
