@@ -5,7 +5,7 @@ import numpy as np
 
 ### Laod the data ###
 
-df = pd.read_csv("PV_lemtaized.csv")
+df = pd.read_csv("slvc.csv")
 VP = df.set_index('File name')
 
 
@@ -78,15 +78,19 @@ with st.sidebar.form("my_form"):
         st.write("Academic Lectures")
     if video_gnere_option  == "Government advertisement":
         st.write("Government advertisement")
-
+    
+    accent_options = st.multiselect(
+        "Speaker's Accent",
+        ['American', 'Australian', 'Canadian', 'British'],
+        ['American',])
 
 
     values = st.slider(
         'Select a range of difficulty values',
-        5.0, 25.0, (5.0, 20.0))
+        5.0, 25.0, (10.0, 20.0))
 
     values_list =list(values)
-    Difficulty_df = df[df['Difficulty Score (5-25)'].between(values_list[0], values_list[1])]
+    Difficulty_df = df[df['Difficulty'].between(values_list[0], values_list[1])]
 
 
     COCA_list_options  = st.radio(
