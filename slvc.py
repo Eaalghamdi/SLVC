@@ -5,7 +5,7 @@ import numpy as np
 
 ### Laod the data ###
 
-df = pd.read_csv("slvc.csv")
+df = pd.read_csv("SLVC.csv")
 
 
 ### Utlities Functions ####
