@@ -96,6 +96,12 @@ with st.sidebar.form("my_form"):
     accent_options = list(accent_options)
     selected_videos = df.loc[df['Accent'].isin(accent_options)]
 
+    CEFR_options = st.multiselect(
+        "CEFR Levels",
+        ['B!'],
+        ['B1']
+        )
+
 
     values = st.slider(
         'Select a range of difficulty values',
