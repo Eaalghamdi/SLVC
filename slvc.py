@@ -23,6 +23,8 @@ _max_width_()
 
 
 def videoDisplayer(videoURLs):
+    if len(videoURLs) > 1:
+        col1.write("Results " + str(len(videoURLs)))
     count = 0
     nCols = int(len(videoURLs)/4)
     while (count < len(videoURLs)):
@@ -68,9 +70,9 @@ if search_option == 'All':
     selected_videos = keywordSearch(title)
     videoDisplayer(selected_videos)
 
+
 expander = st.expander("Explore Data")
 col_full = st.container()
-
 
 #### Sidebar ####
 
@@ -97,7 +99,7 @@ with st.sidebar.form("my_form"):
 
     values = st.slider(
         'Select a range of difficulty values',
-        5.0, 25.0, (10.0, 20.0))
+        5.0, 25.0, (10.0, 15.0))
 
     values_list =list(values)
     selected_videos = df[df['Difficulty'].between(values_list[0], values_list[1])]
@@ -121,6 +123,6 @@ with st.sidebar.form("my_form"):
         expander.dataframe(selected_videos)
         videoDisplayer(selected_videos['URL'])
     else:
-        videoDisplayer(df['URL'])
+        videoDisplayer(df['URL'][:50])
  
 
