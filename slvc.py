@@ -98,7 +98,7 @@ with st.sidebar.form("my_form"):
 
     CEFR_options = st.selectbox(
         "CEFR Levels",
-        ('B1')
+        ('B1', '')
     )
 
 
