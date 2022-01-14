@@ -23,9 +23,14 @@ _max_width_()
 
 
 def videoDisplayer(videoURLs):
-    for col in range(0, len(videoURLs),4):
+    count = 0
+    nCols = int(len(videoURLs)/4)
+    while (count < len(videoURLs)):
         columns = col_full.columns(4)
-        for column, videoURL in zip(columns, videoURLs):
+        old_count = count 
+        count +=4
+        urls = videoURLs.iloc[old_count:count]
+        for column, videoURL in zip(columns, urls):
             column.video(videoURL)
 
 
