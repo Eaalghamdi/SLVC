@@ -96,7 +96,7 @@ with st.sidebar.form("my_form"):
     accent_options = list(accent_options)
     selected_videos = df.loc[df['Accent'].isin(accent_options)]
 
-    CEFR_options = st.multiselect(
+    CEFR_options = st.selectbox(
         "CEFR Levels",
         ['B1'],
         ['B1']
