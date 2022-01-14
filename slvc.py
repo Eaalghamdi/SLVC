@@ -98,7 +98,7 @@ with st.sidebar.form("my_form"):
 
     CEFR_options = st.multiselect(
         "CEFR Levels",
-        ['B!'],
+        ['B1'],
         ['B1']
         )
 
