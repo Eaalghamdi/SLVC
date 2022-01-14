@@ -25,6 +25,8 @@ _max_width_()
 def videoDisplayer(videoURLs):
     if len(videoURLs) > 1:
         col1.write("Results " + str(len(videoURLs)))
+    else:
+        col1.write("Results 0")
     count = 0
     nCols = int(len(videoURLs)/4)
     while (count < len(videoURLs)):
@@ -65,10 +67,10 @@ search_option = col2.selectbox(
      ('All', 'Phrasal Verbs'))
 if search_option == 'Phrasal Verbs':
     selected_videos = keywordSearch(title)
-    videoDisplayer(selected_videos)
+
 if search_option == 'All':
     selected_videos = keywordSearch(title)
-    videoDisplayer(selected_videos)
+
 
 
 expander = st.expander("Explore Data")
@@ -101,7 +103,6 @@ with st.sidebar.form("my_form"):
         ('B1', '')
     )
 
-
     values = st.slider(
         'Select a range of difficulty values',
         5.0, 25.0, (10.0, 15.0))
@@ -112,20 +113,30 @@ with st.sidebar.form("my_form"):
 
     COCA_list_options  = st.radio(
       'Lexical coverage',
-     ('BNC/COCA K1', 'BNC/COCA K1-2', 'BNC/COCA K1-3', 'BNC/COCA K1-4'))
+     ('BNC/COCA K1', 'BNC/COCA K1-2', 'BNC/COCA K1-3', 'BNC/COCA K1-4', 'BNC/COCA K1-5'))
 
-    slider_val = st.slider("Lexical coverage %", 0,100)
+    slider_val = st.slider("Lexical coverage %", 0,100, 10, step=10)
 
-    agree = st.checkbox('Show Dataframe')
+    if COCA_list_options  == 'BNC/COCA K1':
+        selected_videos = df[df['k1_percent'] < slider_val]
+    
+    if COCA_list_options  == 'BNC/COCA K1-2':
+        selected_videos = df[df['k1_2_percent'] < slider_val]
+    
+    if COCA_list_options  == 'BNC/COCA K1-3':
+        selected_videos = df[df['k1_3_percent'] < slider_val]
+    
+    if COCA_list_options  == 'BNC/COCA K1-4':
+        selected_videos = df[df['k1_4_percent'] < slider_val]
 
-   
- 
+    if COCA_list_options  == 'BNC/COCA K1-5':
+        selected_videos = df[df['k1_5_percent'] < slider_val]
+    
 
 
     # Every form must have a submit button.
     submitted = st.form_submit_button("Submit")
-    if submitted and agree:
-        expander.dataframe(selected_videos)
+    if submitted:
         videoDisplayer(selected_videos['URL'])
     else:
         videoDisplayer(df['URL'][:50])
