@@ -127,7 +127,6 @@ with st.sidebar.form("my_form"):
     if submitted and agree:
         expander.dataframe(selected_videos)
         videoDisplayer(selected_videos['URL'])
-    else:
-        videoDisplayer(df['URL'][:50])
+
  
 
